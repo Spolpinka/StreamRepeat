@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        printCountOfEven(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+        printCountOfEven(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     //задание 1
