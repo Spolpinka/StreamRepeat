@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -9,15 +10,22 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
+        //проверка задания 1
+        findMinMax(Stream.of(3, 4, 2, 1, 0, 4, 9), Comparator.comparingInt(Integer::intValue), (min, max) -> System.out.println("Min: " + min + " Max: " + max));
+        System.out.println();
+
+        //проверка задания 2
         printCountOfEven(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     //задание 1
     public static<T> void findMinMax(Stream<? extends T> stream, Comparator<? super T> order, BiConsumer<? super T, ? super T> minMaxConsumer) {
-        Stream<T> newStream = stream.map(Function.identity());
-        T min = stream.min(order).orElse(null);
-        T max = newStream.max(order).orElse(null);
-
+        List<T> tmpList = stream
+                .sorted(order)
+                .collect(Collectors.toList());
+        T min = tmpList.stream().min(order).orElse(null);
+        T max = tmpList.stream().max(order).orElse(null);
+        tmpList.clear();
         minMaxConsumer.accept(min, max);
     }
 
