@@ -3,8 +3,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,14 +17,16 @@ public class Main {
     }
 
     //задание 1
-    public static<T> void findMinMax(Stream<? extends T> stream, Comparator<? super T> order, BiConsumer<? super T, ? super T> minMaxConsumer) {
+    public static <T> void findMinMax(Stream<? extends T> stream, Comparator<? super T> order, BiConsumer<? super T, ? super T> minMaxConsumer) {
         List<T> tmpList = stream
                 .sorted(order)
                 .collect(Collectors.toList());
-        T min = Optional.ofNullable(tmpList.get(0)).orElse(null);
-        T max = Optional.ofNullable(tmpList.get(tmpList.size()-1)).orElse(null);
-        tmpList.clear();
-        minMaxConsumer.accept(min, max);
+        if (!tmpList.isEmpty()) {
+            minMaxConsumer.accept(
+                    Optional.ofNullable(tmpList.get(0)).orElse(null),//min
+                    Optional.ofNullable(tmpList.get(tmpList.size() - 1)).orElse(null));//max
+            tmpList.clear();
+        }
     }
 
     //Задание 2 - вывод четных чисел из потока в консоль
