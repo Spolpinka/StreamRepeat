@@ -23,8 +23,8 @@ public class Main {
         List<T> tmpList = stream
                 .sorted(order)
                 .collect(Collectors.toList());
-        T min = tmpList.stream().min(order).orElse(null);
-        T max = tmpList.stream().max(order).orElse(null);
+        T min = Optional.ofNullable(tmpList.get(0)).orElse(null);
+        T max = Optional.ofNullable(tmpList.get(tmpList.size()-1)).orElse(null);
         tmpList.clear();
         minMaxConsumer.accept(min, max);
     }
